@@ -20,8 +20,8 @@
 		} else if(email.length==0||id=='') {
 			alert("이메일은 필수입니다.");
 		} else {
-			frmMember.method("post");
-			frmMember.action("member3");
+			frmMember.method="post";
+			frmMember.action="member3";
 			frmMember.submit();
 		}
 	}
@@ -50,7 +50,7 @@
 		</table>
 		<input type="button" value="가입하기" onclick="fn_sendMember()">
 		<input type="reset" value="다시 입력">
-		<input type="hidden" name="command" value="addMemeber" />
+		<input type="hidden" name="command" value="addMember" />
 	</form>
 </body>
 </html>
