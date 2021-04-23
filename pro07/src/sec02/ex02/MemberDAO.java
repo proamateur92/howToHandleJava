@@ -68,8 +68,18 @@ public class MemberDAO {
 	}
 
 	public void delMember(String id) {
-		// TODO Auto-generated method stub
-		
+		try {
+			con = dataFactory.getConnection();
+			String query = "delete from t_member where id=?";
+			System.out.println("prepareStatemet: " + query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.executeQuery();
+			pstmt.close();
+		}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 	public void addMember(MemberVO memberVO) {

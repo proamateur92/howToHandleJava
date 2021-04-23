@@ -64,7 +64,7 @@ public class MemberServlet extends HttpServlet {
 			String email = memberVO.getEmail();
 			Date joinDate = memberVO.getJoinDate();
 			
-			out.print("<tr><td>"+id+"</td><td>"+pwd+"</td><td>"+name+"</td><td>"+email+"</td><td>"+joinDate+"</td><td>"+"<a href='/pro07/memeber3>command=delMember&id="+id+"'>삭제</a></td></tr>");
+			out.print("<tr><td>"+id+"</td><td>"+pwd+"</td><td>"+name+"</td><td>"+email+"</td><td>"+joinDate+"</td><td>"+"<a href='/pro07/member3?command=delMember&id="+id+"'>삭제</a></td></tr>");
 		}
 		out.print("</table></body></html>");
 		out.print("<a href='/pro07/memberForm.html'>새 회원 등록하기 </a>");
