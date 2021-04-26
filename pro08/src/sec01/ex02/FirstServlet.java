@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec01.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +15,6 @@ public class FirstServlet extends HttpServlet{
 	throws ServletException, IOException{
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		response.sendRedirect("second?name=lee");
+		response.addHeader("refresh", "1;url=second");
 	}
 }
