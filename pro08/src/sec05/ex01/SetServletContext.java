@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//setContextType utf-8에러
+//ServletContext에 바인딩된 데이터는 모든 서블릿(사용자)이 접근할 수 있다.
 @WebServlet("/cset")
 public class SetServletContext extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
