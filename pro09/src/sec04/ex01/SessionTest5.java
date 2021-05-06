@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/login8")
-public class SessionTest04 extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+@WebServlet("/login")
+public class SessionTest5 extends HttpServlet{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+	throws ServletException, IOException{
 		doHandle(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	throws ServletException, IOException{
 		doHandle(request, response);
 	}
 	
@@ -33,21 +33,20 @@ public class SessionTest04 extends HttpServlet {
 		if(session.isNew()) {
 			if(user_id!=null) {
 				session.setAttribute("user_id", user_id);
-				out.println("<a href='login8'>로그인 상태 확인</a>");
+				String url = response.encodeURL("login");
+				out.print("<a href="+url+">로그인 상태 확인</a>");
 			} else {
-				out.print("<a href='login2.html'>다시 로그인 하세요!!!!!!!</a>");
+				out.print("<a href='login2.html'> 다시 로그인 하세요!!!! </a>");
 				session.invalidate();
 			}
-		}
-		else {
+		} else {
 			user_id = (String)session.getAttribute("user_id");
 			if(user_id!=null&&user_id.length()!=0) {
-				out.print("안녕하세요 " + user_id + "님!!!");
+				out.print(user_id+"님 안녕하세요!!!!!");
 			} else {
-				out.print("<a href='login2.html'>다시 로그인 하세요옷!!!!!</a>");
+				out.print("<a href='login2.html'>다시 로그인 하세요!!!!!</a>");
 				session.invalidate();
 			}
-		}
-		
+	}
 	}
 }
