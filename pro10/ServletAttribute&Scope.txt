@@ -1,0 +1,12 @@
+서블릿 속성이란 다음 세가지 서블릿 API 클래스에 저장되는 객체이다.
+ServletContext
+HttpSession
+HttpServletRequest
+
+서블릿의 스코프는 서블릿 API에 바인딩된 속성에 대한 접근 범위를 의미한다.
+ServletContext에 바인딩된 속성은 애플리케이션 전체에서 접근 가능 -> 어플리케이션 스코프
+HttpSession에 바인딩된 속성은 HttpSession에 해당하는 브라우저만 접근 가능 -> 세션 스코프
+HttpServletRequest는 해당 요청/응답에 대해서만 접근 가능 -> 리퀘스트 스코프
+
+스코프의 기능
+로그인상태유지, 장바구니 기능, MVC의 Model과 View의 데이터 전달 기능
