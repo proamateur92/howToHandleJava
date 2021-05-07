@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//디렉토리와 이름까지 일치하는 URL패턴
 @WebServlet("/first/test")
 public class TestServlet1 extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 

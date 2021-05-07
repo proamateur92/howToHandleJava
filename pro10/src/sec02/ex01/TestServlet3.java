@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//확장자명만 일치하는 URL패턴
 @WebServlet("*.do")
 /*@WebServlet("/*")*/
 public class TestServlet3 extends HttpServlet{
