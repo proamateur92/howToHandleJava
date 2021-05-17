@@ -1,0 +1,16 @@
+Chapter13
+
+자바 태그를 없애는 액션 태그
+
+13.1 인클루드 액션태그 사용하기
+<jsp:include>
+
+디렉티브 태그는  JSP가 자바코드로 변환 될 때 처리되며 고정적인 레이아웃을 포함할 때 사용.
+인클루드 태그는 동적으로 현재 페이지에서 다른 jsp파일로 특정 작업을 요청할 수 있다. 포함되는 JSP가 각각 자바파일로 생성되므로 동적 처리 가능.
+13.2 포워드 액션태그 사용하기
+<jsp:forward>
+
+13.3 useBean, setProperty, getProperty 액션 태그 사용하기
+<jsp:useBean>
+<jsp:setProperty>
+<jsp:getProperty>
