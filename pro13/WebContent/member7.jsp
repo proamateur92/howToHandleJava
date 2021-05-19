@@ -25,20 +25,6 @@
 			<td width="7%">이메일</td>
 			<td width="7%">가입날짜</td>
 		</tr>
-	<% 
-		if(membersList.size()==0) {
-	%>	
-		<tr>
-			<td colspan="5">
-				<p align="center"><b><span style="font-size:9pt;">
-					등록된 회원이 없습니다.</span></b></p>
-			</td>
-		</tr>
-	<% 
-		} else {
-			for(int i=0; i<membersList.size(); i++) {
-				MemberBean bean = (MemberBean)membersList.get(i);
-	%>
 		<tr align="center">
 			<td>
 				<jsp:getProperty name="m" property="id" />
@@ -53,10 +39,6 @@
 				<jsp:getProperty name="m" property="email" />
 			</td>
 		</tr>
-	<%
-			}
-		}
-	%>
 		<tr height="1" bgcolor="#99ccff">
 			<td colspan="5"></td>
 		</tr>
