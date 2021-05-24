@@ -37,9 +37,10 @@
 			<td>${m.pwd }</td>
 			<td>${m.name }</td>
 			<td>${m.email }</td>
-			<td><%=m.getAddr().getCity() %></td>
+			<td><%=m.getAddr().getCity() %></td> 
 			<td><%=m.getAddr().getZipcode() %></td>
 		</tr>
+		<!-- 자바 빈의 속성 이름과 .(마침표) 연산자를 이용해 주소를 출력 -->
 		<tr align="center">
 			<td>${m.id }</td>
 			<td>${m.pwd }</td>
