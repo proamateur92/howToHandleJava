@@ -1,0 +1,10 @@
+파일 업로드시 필수 조건, 객체, 메소드
+
+method="post" enctype="multipart/form-data"
+
+DiskFileItemFactory
+ServletFileUpload
+FileItem
+
+.parseRequest
+.isFieldName
