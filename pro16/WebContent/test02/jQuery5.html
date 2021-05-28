@@ -1,0 +1,20 @@
+<head>
+<meta charset="UTF-8">
+<title>태그 선택자 연습</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function fn_process() {
+		var value = $('#input_value').val();
+		$('#output_value').val(value);
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="input_value">
+	<input type="button"  value="입력하기" onclick="fn_process()" />
+	<br>
+	결과:
+	<br>
+	<input type="text" id="output_value" disabled>
+</body>
+</html>
