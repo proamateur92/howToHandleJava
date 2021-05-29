@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax 호출2</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function fn_process(){
+		$.ajax({
+			type: "post",
+			async: "false",
+			url: "http://localhost:8090/pro16/ajaxTest2",
+			dataType: "xml",
+			success: function(info,textStatus) {
+				console.log(textStatus);
+				$(info).find("book").each(function(){
+					var title = $(this).find("title").text();
+					var writer = $(this).find("writer").text();
+					var image =$(this).find("image").text();
+					
+					$("#bookInfo").append(
+						"<p>책 제목: "+title+"</p>" +		
+						"<p>저자: "+writer+"</p>" +		
+						"<img src="+image+" />"		
+					);
+				});
+			},
+			error: function(info,textStatus){
+				alert("에러가 발생하였습니다.");
+			},
+			complete: function(info, textStatus){
+				alert("작업을 완료하였습니다.");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="전송하기" onclick="fn_process()"><br><br>
+	<div id="bookInfo"></div>
+</body>
+</html>
