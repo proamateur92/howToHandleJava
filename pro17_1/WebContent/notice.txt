@@ -1,0 +1,2 @@
+1. init() 서블릿 컨테이너 초기화 시 객체 생성에 유의 할 것
+- 오탈자 혹은 service, vo 객체를 생성하지 않아 두번이나 에러 발생. request 또는 response의 nullPointException 에러
