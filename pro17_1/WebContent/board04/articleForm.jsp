@@ -51,8 +51,8 @@
 				<td colspan="2"><input type="text" size="67" maxlength="500" name="title" /></td>
 			</tr>
 			<tr>
-				<td align="right" valign="top">글 내용: </td>
-				<td colspan="2"><textarea row="10" cols="65"  maxlength="4000" name="content"></textarea></td>
+				<td align="right" valign="top">글 내용:</td>
+				<td colspan="2"><textarea rows="10" cols="65"  maxlength="4000" name="content"></textarea></td>
 			</tr>
 			<tr>
 				<td align="right">이미지파일 첨부: </td>

@@ -160,12 +160,17 @@ public class BoardDAO {
 			if(imageFileName != null && imageFileName.length()!=0) 
 				query += " ,imageFileName=?";
 			query += " where articleNO=?";
+			
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setString(3, imageFileName);
-			pstmt.setInt(4, articleNO);
+			
+			if(imageFileName != null && imageFileName.length()!=0) {
+				pstmt.setString(3, imageFileName);
+				pstmt.setInt(4, articleNO);
+			} else
+				pstmt.setInt(3, articleNO);
 			pstmt.executeUpdate();
 			pstmt.close();
 			conn.close();
