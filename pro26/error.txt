@@ -1,0 +1,2 @@
+1. action-servlet.xml, web.xml 설정 파일을 WebContent 경로에 생성.
+-> [404에러]당연히 호출한 주소와 controller에 매핑되지 않아 jsp호출을 하지 못했다. 
