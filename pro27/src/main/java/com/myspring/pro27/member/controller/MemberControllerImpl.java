@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +20,7 @@ import com.myspring.pro27.member.vo.MemberVO;
 
 @Controller("memberController")
 public class MemberControllerImpl implements MemberController{
-	
+	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 	@Autowired
 	private MemberService memberService;
 
@@ -30,6 +32,8 @@ public class MemberControllerImpl implements MemberController{
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse reponse) 
 	throws Exception{
 		String viewName = getViewName(request);
+		logger.info("info 레벨 : viewName = "+viewName);
+		logger.debug("debug 레벨 : viewName = "+viewName); //log4j.xml에서 로그레벨을 info로 설정했기 때문에 debug() 매서드로 설정한 메시지는 레벨이 낮아 출력되지 않음.
 		List<MemberVO> membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("membersList", membersList);
