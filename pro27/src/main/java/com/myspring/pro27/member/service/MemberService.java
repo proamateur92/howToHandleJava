@@ -16,4 +16,6 @@ public interface MemberService {
 
 	public int modMember(MemberVO memberVO) throws DataAccessException;
 
+	public MemberVO login(MemberVO memberVO) throws Exception;
+
 }

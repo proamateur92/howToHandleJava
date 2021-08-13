@@ -47,4 +47,11 @@
 			where id=#{id}
 		]]>
 	</delete>
+	
+	<select id="loginById" parameterType="memberVO" resultType="memberVO">
+		<![CDATA[
+			select * from t_member
+			where id=#{id} and pwd=#{pwd}
+		]]>
+	</select>
 </mapper>

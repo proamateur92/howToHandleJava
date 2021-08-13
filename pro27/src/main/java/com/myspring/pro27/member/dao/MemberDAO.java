@@ -16,4 +16,6 @@ public interface MemberDAO {
 
 	public int updateMember(MemberVO memberVO) throws DataAccessException;
 
+	public MemberVO loginById(MemberVO memberVO);
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.pro27.member.service.MemberService;
 import com.myspring.pro27.member.vo.MemberVO;
@@ -32,7 +34,6 @@ public class MemberControllerImpl implements MemberController{
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse reponse) 
 	throws Exception{
 		String viewName = getViewName(request);
-		logger.info("info 레벨 : viewName = "+viewName);
 		logger.debug("debug 레벨 : viewName = "+viewName); //log4j.xml에서 로그레벨을 info로 설정했기 때문에 debug() 매서드로 설정한 메시지는 레벨이 낮아 출력되지 않음.
 		List<MemberVO> membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
@@ -79,19 +80,51 @@ public class MemberControllerImpl implements MemberController{
 	@RequestMapping(value="/member/modMember.do", method=RequestMethod.GET)
 	public ModelAndView modMember(HttpServletRequest request, HttpServletResponse reponse) throws Exception {
 		String viewName = getViewName(request);
+		logger.debug("debug 레벨 : viewName = "+viewName);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
 	}
 
 	@RequestMapping(value="/member/*Form.do", method=RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse reponse) throws Exception {
+	public ModelAndView form(@RequestParam(value="result", required=false) String result, HttpServletRequest request, HttpServletResponse reponse) throws Exception {
 		String viewName = getViewName(request);
+		logger.debug("debug 레벨 : viewName = "+viewName);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
 		mav.setViewName(viewName);
 		return mav;
 	}
 
+	@Override
+	@RequestMapping(value="/member/login.do", method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request,
+			HttpServletResponse reponse) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		memberVO = memberService.login(member);
+		if(memberVO != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", memberVO);
+			session.setAttribute("isLogOn", true);
+			mav.setViewName("redirect:/member/listMembers.do");
+		} else {
+			rAttr.addAttribute("result", "loginFailed");
+			mav.setViewName("redirect:/member/loginForm.do");
+		}
+		return mav;
+	}	
+	
+	@Override
+	@RequestMapping(value="/member/logout.do", method=RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse reponse) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		session.removeAttribute("member");
+		session.removeAttribute("isLogOn");
+		mav.setViewName("redirect:/member/listMembers.do");
+		return mav;
+	}
+	
 	private String getViewName(HttpServletRequest request) throws Exception {
 		String contextPath = request.getContextPath();
 		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
@@ -121,7 +154,11 @@ public class MemberControllerImpl implements MemberController{
 			viewName = viewName.substring(viewName.lastIndexOf("/",1), viewName.length());
 		}
 		return viewName;
-	}	
+	}
+
+	
+
+	
 
 	
 }
