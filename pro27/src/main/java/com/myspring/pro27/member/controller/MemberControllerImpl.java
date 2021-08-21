@@ -33,7 +33,8 @@ public class MemberControllerImpl implements MemberController{
 	@RequestMapping(value="/member/listMembers.do", method=RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse reponse) 
 	throws Exception{
-		String viewName = getViewName(request);
+//		String viewName = getViewName(request);
+		String viewName = (String)request.getAttribute("viewName");
 		logger.debug("debug 레벨 : viewName = "+viewName); //log4j.xml에서 로그레벨을 info로 설정했기 때문에 debug() 매서드로 설정한 메시지는 레벨이 낮아 출력되지 않음.
 		List<MemberVO> membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
@@ -88,7 +89,8 @@ public class MemberControllerImpl implements MemberController{
 
 	@RequestMapping(value="/member/*Form.do", method=RequestMethod.GET)
 	public ModelAndView form(@RequestParam(value="result", required=false) String result, HttpServletRequest request, HttpServletResponse reponse) throws Exception {
-		String viewName = getViewName(request);
+//		String viewName = getViewName(request);
+		String viewName = (String)request.getAttribute("viewName");
 		logger.debug("debug 레벨 : viewName = "+viewName);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", result);
