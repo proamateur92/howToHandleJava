@@ -13,6 +13,13 @@
         <result property="writeDate" column="writeDate" />
         <result property="imageFileName" column="imageFileName" />
 	</resultMap> 
+	
+	<resultMap id="imgResult" type="imageVO">
+		<result property="imageFileNO" column="imageFileNO" />
+		<result property="articleNO" column="articleNO" />
+		<result property="imageFileName" column="imageFileName" />
+	</resultMap>
+	
 	<!-- 
 	<resultMap id="memResult" type="java.util.HashMap">
       <result property="id" column="id" />
@@ -22,9 +29,11 @@
       <result property="joinDate" column="joinDate" />
    </resultMap> -->
 	
+	
+	
 	<select id="selectAllArticlesList" resultMap="articlesResult">
       <![CDATA[
-         SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName
+         SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName, id
          FROM t_board
          START WITH parentNO =0
          CONNECT BY PRIOR articleNO=parentNO
@@ -32,32 +41,77 @@
       ]]>
 	</select>
 	
-	<insert id="insertMember" parameterType="memberVO">
+	<insert id="insertNewArticle" parameterType="java.util.Map">
 		<![CDATA[
-			insert into t_member(id, pwd, name, email) 
-			values(#{id},#{pwd},#{name},#{email})
+			INSERT INTO t_board(articleNO, title, content, imageFileName, id)
+			VALUES(#{articleNO}, #{title}, #{content}, null, #{id})
 		]]>
 	</insert>
 
-	<update id="updateMember" parameterType="memberVO">
+	<select id="selectNewArticleNO" resultType="int">
 		<![CDATA[
-			update t_member 
-			set pwd=#{pwd}, name=#{name}, email=#{email} 
-			where id=#{id}
+			SELECT nvl(max(articleNO), 0) + 1 from t_board
 		]]>
-	</update>
+	</select>
 
-	<delete id="deleteMember" parameterType="String">
+	<select id="selectArticle" resultType="articleVO"   parameterType="int">
+	    <![CDATA[
+	      SELECT * from t_board
+	      where articleNO = #{articleNO}		
+	    ]]>
+  	</select>
+  
+	<select id="viewArticle" resultType="articleVO" parameterType="int">
 		<![CDATA[
-			delete from t_member 
-			where id=#{id}
+			SELECT *
+			FROM t_board
+			WHERE articleNO=#{articleNO}
 		]]>
-	</delete>
+	</select>
 	
 	<select id="loginById" parameterType="memberVO" resultType="memberVO">
 		<![CDATA[
 			select * from t_member
 			where id=#{id} and pwd=#{pwd}
+		]]>
+	</select>
+	
+	<update id="updateArticle" parameterType="java.util.Map">
+		update t_board 
+		set title=#{title}, content=#{content}
+		<if test="imageFileName!='' and imageFileName!=null">
+			, imageFileName=#{imageFileName}
+		</if>
+		where articleNO=#{articleNO}
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int">
+		<![CDATA[
+			delete from t_board
+			where articleNO in (
+				SELECT articleNO FROM t_board
+				START WITH articleNO =#{articleNO}
+				CONNECT BY PRIOR articleNO = parentNO )
+		]]>
+	</delete>
+	
+	<insert id="insertNewImage" parameterType="java.util.Map">
+		<foreach item="item" collection="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL" >
+			INTO t_imageFile(imageFileNO, imageFileName, articleNO, regDate)
+			VALUES (#{item.imageFileNO}, #{item.imageFileName}, #{item.articleNO}, sysdate)
+		</foreach>
+	</insert>
+	
+	<select id="selectNewImageFileNO" resultType="int">
+		<![CDATA[
+			SELECT nvl(max(imageFileNO),0) from t_imageFile
+		]]>
+	</select>
+
+	<select id="selectImageFileList" resultMap="imgResult" parameterType="int">
+		<![CDATA[
+			SELECT * from t_imageFile
+			WHERE articleNO =#{articleNO}
 		]]>
 	</select>
 </mapper>
